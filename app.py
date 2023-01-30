@@ -23,7 +23,7 @@ def check_image():
     except Exception as e:
         jsonResponse = {
             'success': False,
-            'message': 'gagal'
+            'message': format(str(e))
         }
         return jsonify(jsonResponse), 200
 
