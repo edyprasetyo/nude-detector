@@ -23,7 +23,7 @@ def check_image():
     except Exception as e:
         jsonResponse = {
             'success': False,
-            'messages': format(str(e))
+            'message': format(str(e))
         }
         return jsonify(jsonResponse), 200
 
@@ -45,7 +45,7 @@ def check_video():
     except Exception as e:
         jsonResponse = {
             'success': False,
-            'messages': format(str(e))
+            'message': format(str(e))
         }
         return jsonify(jsonResponse), 200
 
