@@ -1,7 +1,11 @@
 from flask import Flask, jsonify, request
 from nudenet import NudeClassifier
 import requests
-import json
+import psutil
+
+pid = psutil.Process()
+initial_cpu = pid.cpu_percent()
+initial_ram = pid.memory_info().rss / 1024 / 1024
 
 classifier = NudeClassifier()
 app = Flask(__name__)
@@ -41,6 +45,14 @@ def check_video():
             'success': bool(maxUnsafe < 0.5),
             'maxUnsafe': float(maxUnsafe)
         }
+        final_cpu = pid.cpu_percent()
+        final_ram = pid.memory_info().rss / 1024 / 1024
+
+        print(f"CPU usage: {initial_cpu - initial_cpu}%")
+        print(f"RAM usage: {initial_ram - initial_ram} MB")
+
+        print(f"CPU usage: {final_cpu - initial_cpu}%")
+        print(f"RAM usage: {final_ram - initial_ram} MB")
         return jsonify(jsonResponse), 200
     except Exception as e:
         jsonResponse = {
